@@ -11,18 +11,49 @@ def main():
 		doc = nlp(line)
 		docs.append(doc)
 
-	# s1 = nlp(u'We had a death pact, and I have to keep my half of the bargain.')
-	# s2 = nlp(u'Dear World, I am leaving because I am bored.')
+	max_score = 0
+	min_score = 1
+	
+	maxnote1 = ""
+	maxnote2 = ""
+
+	minnote1 = ""
+	minnote2 = ""
+
+	scores = []
 	for d in docs:
+		row = []
+		for e in docs:
 		# print docs[0]
-		print d
-		print docs[0].similarity(d)
-		print '======'
+			score = round(d.similarity(e), 3)
+			
+			if score > max_score and score!= 1.0:
+				max_score = score
+				maxnote1 = d
+				maxnote2 = e
 
-	# print docs[0].similarity(docs[0])
 
-	# print docs[1].similarity(docs[1])
-	# print s1.similarity(s2)
+			if score < min_score and score!= 1.0:
+				min_score = score
+				minnote1 = d
+				minnote2 = e
+
+
+			row.append(score)
+			
+
+		
+		scores.append(row)
+	print 'Suidice Note 1:', maxnote1
+	print 'Suicide Note 2:', maxnote2
+	print 'Similarity Score:', max_score
+	print '============================='
+	print 'Suidice Note 1:', minnote1
+	print 'Suidice Note 1:', minnote2
+	print 'Similarity Score:', min_score
+
+	# print scores
+
 
 
 if __name__ == '__main__':
